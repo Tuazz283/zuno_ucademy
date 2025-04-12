@@ -1,15 +1,20 @@
 import { IconHome } from "@/components/icons";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 const PageNotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-600 to-purple-700 flex flex-col items-center justify-center p-4 text-white">
-      <img
-        src="https://source.unsplash.com/featured/?education"
-        alt="ZunoHub"
-        className="w-3/4 md:w-2/5 max-w-xs md:max-w-md rounded-lg shadow-2xl mb-8"
-      />
+      <div className="relative w-3/4 md:w-2/5 max-w-xs md:max-w-md aspect-[4/3] mb-8">
+        <Image
+          src="https://source.unsplash.com/featured/?education"
+          alt="ZunoHub"
+          fill
+          className="object-cover rounded-lg shadow-2xl"
+          priority
+        />
+      </div>
 
       <h1 className="font-extrabold drop-shadow-lg text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
         404
