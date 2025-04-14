@@ -1,3 +1,4 @@
+"use server";
 import mongoose from "mongoose";
 
 let isConnected: boolean = false;
@@ -8,7 +9,7 @@ export const connectToDatabase = async () => {
   }
 
   if (isConnected) {
-    console.log("MongoDB is already connected");
+    console.log("MONGODB is already connected");
     return;
   }
 
@@ -18,9 +19,8 @@ export const connectToDatabase = async () => {
     });
 
     isConnected = true;
-    console.log("MongoDB connected successfully");
+    console.log("Using new database connection");
   } catch (err: any) {
     console.log(`Error while connecting to database: ${err.message || err}`);
-    throw err; // Thêm throw để có thể bắt lỗi ngoài này
   }
 };
