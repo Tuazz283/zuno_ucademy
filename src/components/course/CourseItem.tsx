@@ -48,7 +48,7 @@ const CourseItem = () => {
                 <span>{item.title}</span>
               </div>
             ))}
-            <span className="font-bold text-white text-base ml-auto dark:!font-bold ">
+            <span className="font-bold dark:text-white text-base ml-auto dark:!font-bold text-primary">
               799.000
             </span>
           </div>

@@ -1,9 +1,15 @@
 import CourseGrid from "@/components/common/CourseGrid";
 import CourseItem from "@/components/course/CourseItem";
 import Heading from "@/components/typography/Heading";
+import createUser from "@/lib/actions/user.action";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const user = await createUser({
+    clerkId: "clerk_123",
+    username: "Trịnh Đăng Tuấn",
+    email_address: "trinhdangtuan2005@gmail.com",
+  });
   return (
     <div>
       <Heading>Khám phá</Heading>
