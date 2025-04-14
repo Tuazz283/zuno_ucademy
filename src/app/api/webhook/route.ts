@@ -1,4 +1,6 @@
+import createUser from "@/lib/actions/user.action";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 export async function POST(req: Request) {
   const svix_id = req.headers.get("svix-id") ?? "";
@@ -7,6 +9,9 @@ export async function POST(req: Request) {
 
   if (!process.env.WEBHOOK_SECRET) {
     throw new Error("WEBHOOK_SECRET is not set");
+  }
+  if (!svix_id || !svix_signature || !svix_timestamp) {
+    return new Response("Bad request", { status: 400 });
   }
   const payload = await req.json();
   const body = JSON.stringify(payload);
@@ -25,8 +30,18 @@ export async function POST(req: Request) {
   const evenType = msg.type;
   if (evenType === "user.created") {
     //create user database
-    console.log(msg.data);
+    const { id, username, email_addresses, image_url } = msg.data;
+    const user = await createUser({
+      username: username!,
+      clerkId: id,
+      email: email_addresses[0].email_address,
+      name: username!,
+      avatar: image_url,
+    });
+    return NextResponse.json({
+      message: "Ok",
+      user,
+    });
   }
-
   return new Response("OK", { status: 200 });
 }

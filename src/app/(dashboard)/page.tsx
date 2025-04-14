@@ -5,11 +5,11 @@ import createUser from "@/lib/actions/user.action";
 import React from "react";
 
 const page = async () => {
-  const user = await createUser({
-    clerkId: "clerk_123",
-    username: "tuantd",
-    email: "trinhdangtuan2005@gmail.com",
-  });
+  // const user = await createUser({
+  //   clerkId: "clerk_123",
+  //   username: "tuantd",
+  //   email: "trinhdangtuan2005@gmail.com",
+  // });
   return (
     <div>
       <Heading>Khám phá</Heading>
