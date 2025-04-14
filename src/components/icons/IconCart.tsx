@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 
-const IconPlay = (props: ComponentProps<"svg">) => {
+const IconCart = (props: ComponentProps<"svg">) => {
   return (
     <div>
       <svg
@@ -21,4 +21,4 @@ const IconPlay = (props: ComponentProps<"svg">) => {
   );
 };
 
-export default IconPlay;
+export default IconCart;

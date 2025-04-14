@@ -6,9 +6,10 @@ import React from "react";
 
 const page = async () => {
   const user = await createUser({
-    clerkId: "clerk_123",
-    username: "Trịnh Đăng Tuấn",
-    email_address: "trinhdangtuan2005@gmail.com",
+    clerkId: "clerk_41222122",
+    username: "Trịnh Đăng1333",
+    email: "trinhdangtuan02080233@gmail.com",
+    name: "Trịnh Đăng Tuấn",
   });
   return (
     <div>
