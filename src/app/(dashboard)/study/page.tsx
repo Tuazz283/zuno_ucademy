@@ -9,9 +9,9 @@ const page = () => {
       <Heading>Khu vực học tập</Heading>
       <CourseGrid>
         {" "}
+        {/* <CourseItem d></CourseItem>
         <CourseItem></CourseItem>
-        <CourseItem></CourseItem>
-        <CourseItem></CourseItem>
+        <CourseItem></CourseItem> */}
       </CourseGrid>
     </div>
   );

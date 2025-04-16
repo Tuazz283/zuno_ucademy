@@ -12,7 +12,7 @@ import { IconUser } from "../icons";
 const Sidebar = () => {
   const { userId } = useAuth();
   return (
-    <div className="p-5 border-r border-r-gray-200 bg-white flex flex-col dark:bg-grayDarkest dark:border-opacity-10">
+    <div className=" hidden p-5 border-r lg:flex flex-col  fixed top-0 left-0 bottom-0 w-[300px] borderDarkMode bgDarkMode">
       <a href="/" className="logo font-bold text-3xl inline-block mb-5">
         <span className="text-primary"> Z</span>
         uno

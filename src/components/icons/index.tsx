@@ -7,3 +7,8 @@ export { default as IconComment } from "./IconComment";
 export { default as IconHome } from "./IconHome";
 export { default as IconStar } from "./IconStar";
 export { default as IconClocks } from "./IconClocks";
+export { default as IconAdd } from "./IconAdd";
+export { default as IconCheck } from "./IconCheck";
+export { default as IconEdit } from "./IconEdit";
+export { default as IconRemove } from "./IconRemove";
+export { default as IconEye } from "./IconEye";
