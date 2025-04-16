@@ -30,7 +30,7 @@ export type TCreateCourseParams = {
 export type TUpdateCourseParams = {
   slug: string;
   updateData: Partial<ICourse>;
-  path?: "";
+  path?: string;
 };
 
 //Lecture
