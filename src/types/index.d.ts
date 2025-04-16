@@ -8,6 +8,7 @@ export type TMenuItem = {
   url: string;
   title: string;
   icon: React.ReactNode;
+  onlyIcon?: boolean;
 };
 //USER
 
@@ -29,4 +30,7 @@ export type TCreateCourseParams = {
 export type TUpdateCourseParams = {
   slug: string;
   updateData: Partial<ICourse>;
+  path?: "";
 };
+
+//Lecture

@@ -6,6 +6,12 @@ import { getCourseBySlug } from "@/lib/actions/course.actions";
 import { ECourseStatus } from "@/types/enums";
 import Image from "next/image";
 import React from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const page = async ({
   params,
@@ -50,7 +56,7 @@ const page = async ({
         <BoxSection title="Thông tin">
           <div className="grid grid-cols-4 gap-5">
             <BoxInfor title="Bài học">100</BoxInfor>
-            <BoxInfor title="Lượt xem">{data.views}</BoxInfor>
+            <BoxInfor title="Lượt xem">{data.views.toLocaleString()}</BoxInfor>
             <BoxInfor title="Trình độ">{courseTitle[data.level]}</BoxInfor>
             <BoxInfor title="Thời lượng">100</BoxInfor>
           </div>
@@ -82,10 +88,12 @@ const page = async ({
         <BoxSection title="Q.A">
           <div className="leading-normal mb-10">
             {data.info.qa.map((qa, index) => (
-              <div key={index}>
-                <div>{qa.question}</div>
-                <div>{qa.answer}</div>
-              </div>
+              <Accordion type="single" collapsible key={index}>
+                <AccordionItem value={qa.question}>
+                  <AccordionTrigger>{qa.question}</AccordionTrigger>
+                  <AccordionContent>{qa.answer}</AccordionContent>
+                </AccordionItem>
+              </Accordion>
             ))}
           </div>
         </BoxSection>

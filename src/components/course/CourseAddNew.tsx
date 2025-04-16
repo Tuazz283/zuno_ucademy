@@ -94,16 +94,18 @@ function CourseAddNew() {
             )}
           />
         </div>
-
-        <Button
-          isLoading={isSubmitting}
-          variant="primary"
-          type="submit"
-          className="w-[120px]"
-          disabled={isSubmitting}
-        >
-          Tạo khóa học
-        </Button>
+        <div className="flex justify-end">
+          {" "}
+          <Button
+            isLoading={isSubmitting}
+            variant="primary"
+            type="submit"
+            className="w-[120px]"
+            disabled={isSubmitting}
+          >
+            Tạo khóa học
+          </Button>
+        </div>
       </form>
     </Form>
   );

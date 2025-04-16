@@ -32,7 +32,7 @@ const CourseItem = ({ data }: { data: ICourse }) => {
           className="block h-[180px] relative"
         >
           <Image
-            src="https://images.unsplash.com/photo-1742599968125-a790a680a605?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzNnx8fGVufDB8fHx8fA%3D%3D"
+            src={data.image}
             alt=""
             width={300}
             height={200}
@@ -54,7 +54,7 @@ const CourseItem = ({ data }: { data: ICourse }) => {
               </div>
             ))}
             <span className="font-bold dark:text-white text-base ml-auto dark:!font-bold text-primary">
-              {data.price}
+              {data.price.toLocaleString()}đ
             </span>
           </div>
         </div>

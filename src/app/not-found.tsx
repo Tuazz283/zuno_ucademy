@@ -6,33 +6,38 @@ import React from "react";
 const PageNotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-600 to-purple-700 flex flex-col items-center justify-center p-4 text-white">
-      <div className="relative w-3/4 md:w-2/5 max-w-xs md:max-w-md aspect-[4/3] mb-8">
+      {/* Ảnh nền minh họa */}
+      <div className="relative w-4/5 sm:w-2/3 md:w-1/3 aspect-[4/3] mb-6">
         <Image
           src="https://source.unsplash.com/featured/?education"
           alt="ZunoHub"
           fill
-          className="object-cover rounded-lg shadow-2xl"
+          className="object-cover rounded-xl shadow-2xl"
           priority
         />
       </div>
 
-      <h1 className="font-extrabold drop-shadow-lg text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-        404
-      </h1>
-      <h2 className="mt-4 mb-6 font-semibold text-xl sm:text-2xl md:text-3xl">
-        Oops! Không tìm thấy trang
+      {/* Mã lỗi */}
+      <h1 className="text-6xl md:text-7xl font-black drop-shadow-md">404</h1>
+
+      {/* Thông điệp chính */}
+      <h2 className="mt-3 mb-4 text-lg sm:text-xl md:text-2xl font-semibold text-center">
+        Oops! Không tìm thấy trang bạn yêu cầu.
       </h2>
-      <p className="mb-10 text-base sm:text-lg text-center max-w-md">
-        Có vẻ như trang bạn tìm kiếm không tồn tại. Hãy quay lại trang chủ và
-        tiếp tục hành trình học tập của bạn.
+
+      {/* Mô tả ngắn */}
+      <p className="mb-8 text-sm sm:text-base text-center max-w-lg text-white/90">
+        Có thể đường dẫn không chính xác hoặc nội dung đã bị xóa. Hãy trở về
+        trang chủ để tiếp tục hành trình học tập của bạn cùng ZunoHub nhé!
       </p>
 
+      {/* Nút trở về */}
       <Link
         href="/"
-        className="flex items-center gap-3 bg-white text-blue-700 px-4 py-2 sm:px-6 sm:py-3 rounded-full shadow-lg hover:bg-gray-200 transition"
+        className="flex items-center gap-2 bg-white text-blue-700 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-md hover:bg-gray-100 transition font-medium text-sm sm:text-base"
       >
-        <IconHome className="w-5 h-5" />
-        <span>Trang chủ</span>
+        <IconHome className="w-4 h-4" />
+        <span>Quay về trang chủ</span>
       </Link>
     </div>
   );

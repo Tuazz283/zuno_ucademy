@@ -5,6 +5,9 @@ const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      screens: {
+        "3xl": "1600px",
+      },
       fontFamily: {
         primary: ["var(--font-manrope)"],
       },
@@ -13,16 +16,24 @@ const config: Config = {
         grayDarkest: "#131316",
         grayDarker: "#212126",
         grayDark: "#9394A1",
-        softPurple: "#fdfdf9",
+        softPurple: "#f6f6f8",
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
         },
       },
       animation: {
