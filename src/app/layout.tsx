@@ -4,6 +4,7 @@ import { manrope } from "@/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/common/ThemeProvider";
 import { ToastContainer, toast } from "react-toastify";
+
 export const metadata: Metadata = {
   title: "ZunoHub",
   description: "Nền tảng học lập trình trực tuyến",
@@ -36,7 +37,6 @@ export default function RootLayout({
               draggable
               pauseOnHover={false}
               theme="light"
-              progressStyle={{ background: "#4ade80" }}
             />
           </ThemeProvider>
         </body>

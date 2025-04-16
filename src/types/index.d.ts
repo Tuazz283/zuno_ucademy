@@ -23,7 +23,7 @@ export type TCreateUserParams = {
 export type TCreateCourseParams = {
   title: string;
   slug: string;
-  author: string;
+  author?: string;
 };
 
 export type TUpdateCourseParams = {

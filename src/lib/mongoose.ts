@@ -20,7 +20,11 @@ export const connectToDatabase = async () => {
 
     isConnected = true;
     console.log("Using new database connection");
-  } catch (err: any) {
-    console.log(`Error while connecting to database: ${err.message || err}`);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log(`Error while connecting to database: ${err.message}`);
+    } else {
+      console.log(`Unknown error while connecting to database: ${String(err)}`);
+    }
   }
 };
