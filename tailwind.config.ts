@@ -12,11 +12,11 @@ const config: Config = {
         primary: ["var(--font-manrope)"],
       },
       colors: {
-        primary: "#6c5dd3",
+        primary: "#7D6AFF",
         grayDarkest: "#131316",
         grayDarker: "#212126",
         grayDark: "#9394A1",
-        softPurple: "#f6f6f8",
+        softPurple: "#e5e5e5",
       },
       keyframes: {
         "accordion-down": {

@@ -1,5 +1,6 @@
 import PageNotFound from "@/app/not-found";
-import { IconCheck, IconPlay } from "@/components/icons";
+
+import { IconCheck, IconEdit, IconPlay, IconRemove } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { courseTitle } from "@/constants";
 import { getCourseBySlug } from "@/lib/actions/course.actions";
@@ -12,6 +13,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { ILecture } from "@/database/lecture.model";
+import { TUpdateCourseLecture } from "@/types";
+import LessonItem from "@/components/lesson/LessonItem";
+import LessonContent from "@/components/lesson/LessonContent";
 
 const page = async ({
   params,
@@ -25,9 +31,16 @@ const page = async ({
   if (!data) return null;
   if (data.status !== ECourseStatus.APPROVED)
     return <PageNotFound></PageNotFound>;
-  const videoId = data.intro_url?.split("v=")[1];
+  function extractYouTubeVideoId(url: string): string | null {
+    const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  }
+
+  const videoId = data.intro_url ? extractYouTubeVideoId(data.intro_url) : null;
+  const lectures = data.lectures || [];
   return (
-    <div className="grid lg:grid-cols-[2fr,1fr] gap-10">
+    <div className="grid xl:grid-cols-[2fr,1fr] gap-10">
       <div>
         <div className="relative aspect-video mb-5">
           {data.intro_url ? (
@@ -36,8 +49,7 @@ const page = async ({
                 width="640"
                 height="360"
                 src={`https://www.youtube.com/embed/${videoId}`}
-                title="HÀNH LÝ TRÊN TAY - KIỀU CHI | OFFICIAL MUSIC VIDEO"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
               ></iframe>
             </div>
           ) : (
@@ -49,6 +61,7 @@ const page = async ({
             />
           )}
         </div>
+
         <h1 className="font-bold text-3xl mb-5">{data.title}</h1>
         <BoxSection title="Mô tả">
           <div className="leading-normal mb-5">{data.desc}</div>
@@ -61,10 +74,13 @@ const page = async ({
             <BoxInfor title="Thời lượng">100</BoxInfor>
           </div>
         </BoxSection>
+        <BoxSection title="Nội dung khóa học">
+          <LessonContent lectures={lectures} course="" slug=""></LessonContent>
+        </BoxSection>
         <BoxSection title="Yêu cầu">
           <div className="leading-normal mb-10">
             {data.info.requirements.map((r, index) => (
-              <div key={index} className="mb-3 flex items-center gap-2">
+              <div key={index} className="mb-3 flex items-center gap-2 ">
                 <span className="flex-shrink-0 size-5 bg-primary text-white p-1 rounded flex items-center justify-center">
                   <IconCheck></IconCheck>
                 </span>
@@ -162,8 +178,7 @@ function BoxSection({
 }) {
   return (
     <div>
-      {" "}
-      <h2 className="font-bold text-xl mb-5">{title}</h2>
+      <h2 className="font-bold text-xl mb-5 mt-5">{title}</h2>
       <div className=" =mb-10">{children}</div>
     </div>
   );

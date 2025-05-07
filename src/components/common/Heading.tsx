@@ -10,7 +10,7 @@ const Heading = ({
 }) => {
   return (
     <div>
-      <h1 className={cn("font-bold text-2xl lg:text-3xl", className)}>
+      <h1 className={cn("font-bold text-sm lg:text-base", className)}>
         {children}
       </h1>
     </div>

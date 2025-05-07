@@ -10,7 +10,6 @@ const IconRemove = (props: ComponentProps<"svg">) => {
       stroke="currentColor"
       {...props}
     >
-      {" "}
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

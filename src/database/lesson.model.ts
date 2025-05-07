@@ -48,7 +48,7 @@ const lessonSchema = new Schema<ILesson>({
   },
   lecture: {
     type: Schema.Types.ObjectId,
-    refL: "Lecture",
+    ref: "Lecture",
   },
   course: {
     type: Schema.Types.ObjectId,
@@ -60,5 +60,6 @@ const lessonSchema = new Schema<ILesson>({
     default: ELessonType.VIDEO,
   },
 });
-const Lesson = models.Lesson || model<ILesson>("Lecture", lessonSchema);
+
+const Lesson = models.Lesson || model<ILesson>("Lesson", lessonSchema);
 export default Lesson;
