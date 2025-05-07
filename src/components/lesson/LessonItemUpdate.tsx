@@ -153,6 +153,8 @@
 // export default LessonItemUpdate;
 "use client";
 
+"use client";
+
 import { ILesson } from "@/database/lesson.model";
 import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -174,6 +176,7 @@ import { toast } from "react-toastify";
 import { Editor } from "@tinymce/tinymce-react";
 import { editorOptions } from "@/constants";
 import { useTheme } from "next-themes";
+import type { Editor as TinyMCEEditor } from "tinymce";
 
 const formSchema = z.object({
   slug: z.string().optional(),
@@ -181,52 +184,48 @@ const formSchema = z.object({
   video_url: z.string().optional(),
   content: z.string().optional(),
 });
+type FormData = z.infer<typeof formSchema>;
 
 const LessonItemUpdate = ({ lesson }: { lesson: ILesson }) => {
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<TinyMCEEditor | null>(null);
   const { theme } = useTheme();
-
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      slug: lesson.slug || "",
-      duration: lesson.duration || 0,
-      video_url: lesson.video_url || "",
-      content: lesson.content || "",
+      slug: lesson.slug,
+      duration: lesson.duration,
+      video_url: lesson.video_url,
+      content: lesson.content,
     },
   });
 
   useEffect(() => {
-    if (editorRef.current && lesson.content) {
-      editorRef.current.setContent(lesson.content);
+    if (editorRef.current) {
+      editorRef.current.setContent(lesson.content || "");
     }
   }, [lesson.content]);
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: FormData) => {
     try {
-      // Lấy nội dung từ editor
       const content = editorRef.current?.getContent() || "";
-      const updatedValues = { ...values, content };
-
       const res = await updateLesson({
         lessonId: lesson._id,
-        updateData: updatedValues,
+        updateData: { ...values, content },
       });
-
-      if (res?.success) {
-        toast.success("Cập nhật bài học thành công!");
-      }
-    } catch (error) {
-      console.error("Lỗi khi cập nhật bài học:", error);
-      toast.error("Cập nhật bài học thất bại.");
+      if (res?.success) toast.success("Cập nhật bài học thành công!");
+      else toast.error("Cập nhật không thành công.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Đã có lỗi xảy ra.");
     }
-  }
+  };
 
   return (
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-8">
+            {/* Đường dẫn */}
             <FormField
               control={form.control}
               name="slug"
@@ -241,16 +240,17 @@ const LessonItemUpdate = ({ lesson }: { lesson: ILesson }) => {
               )}
             />
 
+            {/* Thời lượng */}
             <FormField
               control={form.control}
               name="duration"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Thời lượng</FormLabel>
+                  <FormLabel>Thời lượng (phút)</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="30"
+                      placeholder="60"
                       {...field}
                       onChange={(e) => field.onChange(Number(e.target.value))}
                     />
@@ -260,6 +260,7 @@ const LessonItemUpdate = ({ lesson }: { lesson: ILesson }) => {
               )}
             />
 
+            {/* Video URL */}
             <FormField
               control={form.control}
               name="video_url"
@@ -279,24 +280,34 @@ const LessonItemUpdate = ({ lesson }: { lesson: ILesson }) => {
             />
 
             <div className="col-span-2">
-              <FormItem>
-                <FormLabel>Nội dung</FormLabel>
-                <FormControl>
-                  <Editor
-                    apiKey="7u3pe9flxquynllzfgxlubrhnzzfd95d9opk77dlskns0j5k"
-                    onInit={(_, editor) => {
-                      editorRef.current = editor;
-                      editor.setContent(lesson.content || "");
-                    }}
-                    {...editorOptions(form.getValues("content") || "", theme)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              {/* Nội dung editor */}
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nội dung</FormLabel>
+                    <FormControl>
+                      <Editor
+                        apiKey="7u3pe9flxquynllzfgxlubrhnzzfd95d9opk77dlskns0j5k"
+                        onInit={(_, ed) => {
+                          editorRef.current = ed;
+                          ed.setContent(lesson.content || "");
+                        }}
+                        {...editorOptions(
+                          field,
+                          (theme ?? "light") as "light" | "dark"
+                        )}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
 
-          <div className="flex justify-end gap-5 items-center mt-8">
+          <div className="flex justify-end gap-5 mt-8">
             <Button type="submit">Cập nhật</Button>
             <Link href="/" className="text-sm text-slate-600">
               Xem trước
